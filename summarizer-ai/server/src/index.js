@@ -1,7 +1,12 @@
 require('dotenv').config();
 const express = require('express');
-const cors = require('cors');
 require('./config/mongo');
+const cors = require("cors");
+
+app.use(cors({
+  origin: "*",   // abhi ke liye sab allowed
+}));
+
 const uploadRoutes = require('./routes/upload');
 const summarizeRoutes = require('./routes/summarize');
 const emailRoutes = require('./routes/email');
@@ -9,7 +14,7 @@ const summariesRoutes = require('./routes/summaries');
 const error = require('./middleware/error');
 
 const app = express();
-app.use(cors({ origin: true, credentials: true }));
+
 app.use(express.json({ limit: '5mb' }));
 
 app.get('/api/health', (_req, res) => res.json({ ok: true }));
